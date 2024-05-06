@@ -1,0 +1,14 @@
+{
+    "nev": "mentes",
+    "leiras": "Mentés készítése HD-ról PenDrive-ra.",
+    "eszkozok": [
+        "python",
+        "PowerShell"
+    ],
+    "file_fej_informaciok": {
+        "szerzo": {
+            "nev": "Závorszky, István",
+            "email": "zavorszky@yahoo.com"
+        }
+    }
+}
