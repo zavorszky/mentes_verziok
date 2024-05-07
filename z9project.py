@@ -3,16 +3,22 @@
 # Description: Project feladatok/dokumentáció készítés támogatása.
 # Use: $ python -c 'import z9project; z9import.prgFile_gen()'
 # Info:
-#   1) stackowerflow: Run function from the command line: https://stackoverflow.com/questions/3987041/run-function-from-the-command-line
-#   2) stackowerflow: How do I create a constant in Python?: https://stackoverflow.com/questions/2682745/how-do-i-create-a-constant-in-python
-#   3) GeeksforGeeks:Read JSON file using Python: https://www.geeksforgeeks.org/read-json-file-using-python/
-# Importok: re (RegExp)
+#   * GeeksforGeeks: Read JSON file using Python: https://www.geeksforgeeks.org/read-json-file-using-python/
+#   * GeeksforGeeks: User-defined Exceptions in Python with Examples: https://www.geeksforgeeks.org/user-defined-exceptions-python-examples/
+#   * Medium: 5 Best Practices for Python Exception Handling: https://medium.com/@saadjamilakhtar/5-best-practices-for-python-exception-handling-5e54b876a20
+#   * python: Handling Exceptions: https://wiki.python.org/moin/HandlingExceptions
+#   * Rollbar: How to Catch Multiple Exceptions in Python: https://rollbar.com/blog/python-catching-multiple-exceptions/
+#   * stackowerflow: How do I create a constant in Python?: https://stackoverflow.com/questions/2682745/how-do-i-create-a-constant-in-python
+#   * stackowerflow: Run function from the command line: https://stackoverflow.com/questions/3987041/run-function-from-the-command-line
+#   * stackowerflow: Unicode (UTF-8) reading and writing to files in Python: https://stackoverflow.com/questions/491921/unicode-utf-8-reading-and-writing-to-files-in-python
+
 # Created: 2024-05-05
 # Author: zavorszky@yahoo.com
 
 import re
 import datetime
 import json
+import sys
 
 # Konstansok
 # (A Pyton-ban nincs nyelvi eszköz konstansok definiálására.
@@ -21,6 +27,34 @@ import json
 
 F_NEV_MASZK = "^[a-zA-Z]([a-zA-Z]|[0-9])*$"
 AKT_DATUM = datetime.datetime.now()
+PRJFILE_ENCODING = "utf-8"
+PRJFILE_NEV = "z9project.json"
+TELJES_FNEV_ENCODING = "utf-8"
+
+
+# Osztályok
+class AltalanosKivetel(Exception):
+    pass
+
+
+class HianyzoErtek(AltalanosKivetel):
+    def __init__(self, uzenet_tipus, uzenet):
+        self.msg = f"[{uzenet_tipus}] Hiányzó {uzenet} érték."
+
+
+class HibasErtek(AltalanosKivetel):
+    def __init__(self, uzenet_tipus, uzenet, ertek):
+        self.msg = f"[{uzenet_tipus}] Hibás {uzenet} érték: {ertek}."
+
+
+class HibasFileNev(AltalanosKivetel):
+    def __init__(self, uzenet_tipus, fnev, fmaszk):
+        self.msg = f"[{uzenet_tipus}] Az [{fnev}] nem illeszkedik az [{fmaszk}]-ra."
+
+
+class EgyebHiba(AltalanosKivetel):
+    def __init__(self, uzenet_tipus, uzenet):
+        self.msg = f"[{uzenet_tipus}] Egyéb hiba: {uzenet}."
 
 
 def file_gen():
@@ -28,82 +62,96 @@ def file_gen():
     ftipus = ""  # File tipus
     fnev = ""  # File név
     teljes_fnev = ""  # Teljes file név
-    pktipus_kod = ""
-    pktipus = ""
-    fejsorok = []
-    prjnev = ""
-    prjszerzo = ""
+    pktipus_kod = ""  # Programkódtipus kód
+    pktipus = ""  # Programkódtipus kód
+    fejsorok = []  # Fejsorok
+    prjnev = ""  # Projektnév
+    prjleiras = ""  # Projekt rövid leírás
+    prjszerzo = ""  # Project szerző
     try:
         print("\nProject feladatok/dokumentáció készítés támogatása.")
         print("--------------------")
 
         print("\tProject adatok beolvasása...")
-        f = open("z9project.json")
-        projektadatok = json.load(f)
-        prjnev = projektadatok["nev"]
-        prjszerzo = projektadatok["file_fej_informaciok"]["szerzo"]["email"]
-        f.close()
+        try:
+            f = open(PRJFILE_NEV, encoding=PRJFILE_ENCODING)
+
+            try:
+                projektadatok = json.load(f)
+                prjnev = projektadatok["nev"]
+                prjleiras = projektadatok["rovid_leiras"]
+                prjszerzo = projektadatok["file_fej_informaciok"]["szerzo"]["email"]
+            except Exception as e:
+                raise EgyebHiba("H", f"Probléma a {PRJFILE_NEV} beovasásánál: {e}.")
+            finally:
+                f.close()
+        except Exception as e:
+            raise EgyebHiba("H", f"Probléma a {PRJFILE_NEV} file megnyitásánál: {e}.")
+
         print(f"\tProjekt név: {prjnev}")
+        print(f"\tProjekt rövid leírás: {prjleiras}")
         print(f"\tSzerző email: {prjszerzo}")
 
         #
         print("\nMilyen file-t kell készíteni?")
         print("\tÉrvényes file tipus kódok: 1=(.py).")
         ftipus_kod = input("\tVálasztás: ")
-        while True:
-            if ftipus_kod == "":
-                raise RuntimeError("Info: Nincs megadva File Type kód.")
-            if ftipus_kod == "1":
-                ftipus = "py"
-                break
-            else:
-                raise RuntimeError(
-                    f"Hiba: Nem megfelelő a file tipus kód: [{ftipus_kod}]."
-                )
+        if ftipus_kod == "":
+            raise HianyzoErtek("I", "ftipus_kod")
+        if ftipus_kod == "1":
+            ftipus = "py"
+        else:
+            raise HibasErtek("H", "ftipus_kod", ftipus_kod)
         #
         print("\nMi legyen a file neve?")
         print(f"\tA file névnek illeszkednie kell a [{F_NEV_MASZK}]-ra.")
         fnev = input("\tFile név: ")
-        while True:
-            if fnev == "":
-                raise RuntimeError("Info: Nincs megadva File név.")
-            if re.search(F_NEV_MASZK, fnev):
-                break
-            else:
-                raise RuntimeError(
-                    f"Hiba: A [{fnev}] nem illeszkedik a [{F_NEV_MASZK}] maszkra."
-                )
+        if fnev == "":
+            raise HianyzoErtek("I", "fnev")
+        if re.search(F_NEV_MASZK, fnev):
+            pass
+        else:
+            raise HibasFileNev("H", fnev, F_NEV_MASZK)
         #
         print("\nMilyen típusú programkód kerül a file-ba?")
         print("\tÉrvényes programkódtípus kódok: 1=(Python app), 2=(Python module).")
         pktipus_kod = input("\tVálasztás: ")
-        while True:
-            if pktipus_kod == "":
-                raise RuntimeError("Info: Nincs megadva a programkódtípus kód.")
-            if pktipus_kod == "1":
-                pktipus = "Python app"
-                break
-            if pktipus_kod == "2":
-                pktipus = "Python module"
-                break
-            else:
-                raise RuntimeError(
-                    f"Hiba: Nem megfeleló programkódtípus kód: [{pktipus_kod}]."
-                )
+        if pktipus_kod == "":
+            raise HianyzoErtek("I", "pktipus_kod")
+        if pktipus_kod == "1":
+            pktipus = "Python app"
+        elif pktipus_kod == "2":
+            pktipus = "Python module"
+        else:
+            raise HibasErtek("H", "pktipus_kod")
         #
         teljes_fnev = fnev + "." + ftipus
 
         #
-        fejsorok.append("# Project: " + prjnev)
+        fejsorok.append("# Projekt: " + prjnev)
+        fejsorok.append("# Rövid leírás: " + prjleiras)
         fejsorok.append("# File: " + teljes_fnev)
-        fejsorok.append("# Code type: " + pktipus)
-        fejsorok.append("# Created: " + AKT_DATUM.strftime("%Y-%m-%d"))
-        fejsorok.append("# Author: " + prjszerzo)
+        fejsorok.append("# Feladat: ")
+        fejsorok.append("# Programkód tipus: " + pktipus)
+        fejsorok.append("# Készült: " + AKT_DATUM.strftime("%Y-%m-%d"))
+        fejsorok.append("# Szerző: " + prjszerzo)
 
         #
         for sor in fejsorok:
             print(sor)
 
-        print("Kész.")
-    except RuntimeError as e:
-        print(e)
+        #
+        try:
+            f = open(teljes_fnev, "x", encoding=TELJES_FNEV_ENCODING)
+            for fejsor in fejsorok:
+                f.write(fejsor + "\n")
+        except Exception as e:
+            raise EgyebHiba("H", f"Probléma a {teljes_fnev} létrehozásánál: {str(e)}.")
+        finally:
+            f.close()
+
+        print("\nKész.")
+    except Exception as e:
+        print("\nFIGYELEM!")
+        print("Probléma volt a végrehajtás közben.")
+        print(e.msg)
