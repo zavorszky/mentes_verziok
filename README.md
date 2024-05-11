@@ -33,18 +33,22 @@ Amíg a Python szkripthez nem tudok eleget, az egyszerű Win10 Cmd Script-et has
 * Stabil verzió: nincs
 * Script nyelv: Win CMD, Python
 * Tömörítés: 7zip
+* Mentés paraméterek tárolása a "**mentes.json**" file-ban.
 * Logozás 
-    - Script üzenetek írása text file-ba. Egy mentés log file,\
-    amiben összefoglaló üzenetek a mentésről.
+    - Script üzenetek írása text file-ba. Ez egy log file,\
+    amiben összefoglaló üzenetek kerülnek a mentés lépéseirő,\
+    majd a mentésről egy összefoglaló információs sor.
     - Tömörító stdout átirányítása text file-ba. Minden mentés esetén
       külön text file készül a tömörítő üzeneteiről.
     - A tömörítő üzeneteit tartalmazó file-ok közül a régieket törölni kell.
+    - A logozásra külön modul készült: z9log_mod.py.\
+    Ha módosítani akarjuk a logozást, akkor a "**z9log.cfg**" (ecode=utf-8) file-t kell használni.\
+    Info: [python &raquo; logging.config — Logging configuration &raquo; Configuration file format](https://docs.python.org/3/library/logging.config.html)
 
 
 # Készült
 
-Budapest, 2024-04-20 ...
-
+Budapest, 2024-04-20 ...\
 Závorszky István
 
 zavorszky@yahoo.com

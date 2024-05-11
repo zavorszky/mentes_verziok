@@ -3,7 +3,7 @@
         "Ennek a file-nak utf-8 kódolásúnak kell lennie!"
     ],
     "nev": "mentes",
-    "rovid_leiras": "Mentés készítése HD-ról PenDrive-ra.",
+    "rovid_leiras": "Tömörített mentés készítése HD-ról PenDrive-ra.",
     "eszkozok": [
         "python",
         "PowerShell"
