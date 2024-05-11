@@ -28,7 +28,7 @@ Amíg a Python szkripthez nem tudok eleget, az egyszerű Win10 Cmd Script-et has
     - Script echo üzenetek átirányítása text file-ba.
     - Tömörító stdout átirányítása text file-ba.
 
-## v2.0
+## v1.0
 
 * Stabil verzió: nincs
 * Script nyelv: Win CMD, Python
