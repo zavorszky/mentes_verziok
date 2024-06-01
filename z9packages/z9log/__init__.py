@@ -1,0 +1,1 @@
+# A 'z9log' csomag/package inicializálása.

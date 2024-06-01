@@ -26,6 +26,7 @@ import sys
 #  A csupa nagybetű névkonvenciót használják figyelmeztetésül,
 #  hogy a változó konstansnak van tervezve, ezért ne adjunk értéket neki.
 
+# Konstansok
 F_NEV_MASZK = "^[a-zA-Z]([a-zA-Z]|[0-9]|[_])*$"
 AKT_DATUM = datetime.datetime.now()
 PRJFILE_ENCODING = "utf-8"
