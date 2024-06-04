@@ -1,3 +1,6 @@
 .vscode
 *__pycache__/
 *.log
+*.zip
+test/*.jpg
+test/test_zip/

@@ -51,6 +51,7 @@ ZIPTIPUS_ERVENYES = "ZIPFILE"
 
 
 def naplozas_init() -> None:
+    """ """
     try:
         ms = sm.Sorszam(p_file_nev=SEQ_NEV)
     except Exception as e:
@@ -78,7 +79,13 @@ def naplozas_init() -> None:
     return naplo
 
 
-def mentes_konyvtarak(p_naplo: lm.Naplo, p_stat: dict):
+def mentes_konyvtar(p_naplo: lm.Naplo, sor: list) -> bool:
+    """ """
+    return True
+
+
+def mentes_konyvtarak(p_naplo: lm.Naplo, p_stat: dict) -> None:
+    """ """
     if not os.path.exists(MENTESTABLAFILE_NEV):
         raise FileNotFoundError(
             OSERROR_ENOENT, OSERROR_ENOENT_MESSAGE, MENTESTABLAFILE_NEV
@@ -102,9 +109,13 @@ def mentes_konyvtarak(p_naplo: lm.Naplo, p_stat: dict):
             i: int = 0
             for sor in olvaso:
                 i += 1
-                print("\t", i, sor)
-                p_stat["darab_sikeres"] += 1
-            p_stat
+                if mentes_konyvtar(p_naplo, sor):
+                    p_stat["darab_sikeres"] += 1
+                    print("\t", i, "OK", sor[2])
+                else:
+                    p_stat["darab_sikertelen"] += 1
+                    print("\t", i, "Hibás", sor[2])
+
     except Exception as e:
         raise mhm.H_Egyeb(
             f"Hiba történt a '{MENTESTABLAFILE_NEV}' file beolvasásakor"
@@ -119,6 +130,8 @@ def main():
 
         naplo.irInfo("")
         naplo.irInfo(f"{PRG_NEV} (v{PRG_VERZIO})")
+
+        # oooo
 
         print(f"\nA mentés a '{MENTESTABLAFILE_NEV}' tábla alapján...")
 
@@ -139,6 +152,8 @@ def main():
         munka_str = f"{stat['darab_sikertelen']} sikertelen mentés [db]"
         print("\t" + munka_str)
         naplo.irInfo(munka_str)
+
+        # oooo
 
         print("\nLevél(email) küldés...")
         print("\tSikeres levél küldés")
