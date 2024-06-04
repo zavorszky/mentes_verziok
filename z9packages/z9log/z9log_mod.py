@@ -38,6 +38,7 @@ class Naplo:
     def __init__(self, p_logger_name: str, p_logfile_name: str, p_sorszam: int) -> None:
         self.logger_name = p_logger_name
         self.sorszam = p_sorszam
+        self.konzolrais = False
 
         if os.sep == "/":
             self.logfile_name = p_logfile_name
@@ -72,9 +73,15 @@ class Naplo:
 
     def irInfo(self, p_uzenet: str) -> None:
         self.logger.info(f"[{self.sorszam}] {p_uzenet}")
+        if self.konzolrais:
+            print(p_uzenet)
 
     def irWarn(self, p_uzenet: str) -> None:
         self.logger.warning(f"[{self.sorszam}] {p_uzenet}")
+        if self.konzolrais:
+            print(p_uzenet)
 
     def irErr(self, p_uzenet: str) -> None:
         self.logger.error(f"[{self.sorszam}] {p_uzenet}")
+        if self.konzolrais:
+            print(p_uzenet)

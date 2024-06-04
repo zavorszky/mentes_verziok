@@ -1,4 +1,6 @@
-7z parancsok;kapcsolók;Forrás könyvtár;Archívum
+ZIP tipus
+ZipFile
+ZIP parancsok;Kapcsolók;Forrás könyvtár;Archívum
 u;-r;h:\DADY\rend\esemenyek\;i:\DADY\mentes\esemenyek
 u;;h:\DADY\rend\temak\;i:\DADY\mentes\temak
 u;-r;h:\DADY\rend\rend\;i:\DADY\mentes\rend

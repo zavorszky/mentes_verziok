@@ -13,14 +13,14 @@ class Hiba(Exception):
 class H_Sorszam_KonfigOlvasasa(Hiba):
     def __init__(self, p_file_nev: str) -> None:
         self.file_name = p_file_nev
-        self.message = f"Nem sikerült a sorszám beolvasása a '{self.file_name}'-ból"
+        self.message = f"Nem sikerült a sorszám beolvasása a '{p_file_nev}'-ból"
         super().__init__(self.message)
 
 
 class H_Sorszam_KonfigIrasa(Hiba):
     def __init__(self, p_file_nev: str) -> None:
         self.file_name = p_file_nev
-        self.message = f"Nem sikerült a sorszám kiírása a '{self.file_name}'-ba"
+        self.message = f"Nem sikerült a sorszám kiírása a '{p_file_nev}'-ba"
         super().__init__(self.message)
 
 
@@ -36,7 +36,18 @@ class H_Naplozas_Elokeszites(Hiba):
 class H_File_Kereses(Hiba):
     def __init__(self, p_file_nev: str) -> None:
         self.file_neve = p_file_nev
-        self.message = f"Nem található a '{self.file_neve}'-ba"
+        self.message = f"Nem található a '{p_file_nev}'-ba"
+        super().__init__(self.message)
+
+
+class H_ZIP_File_Cella(Hiba):
+    def __init__(
+        self, p_file_nev: str, p_hibas_cella: str, p_helyes_ertekek: list
+    ) -> None:
+        self.file_neve = p_file_nev
+        self.cella = p_hibas_cella
+        self.helyes_ertekek = p_helyes_ertekek
+        self.message = f"A '{self.file_neve}'-ban hibás a '{p_hibas_cella}' értéke. Helyes: {p_helyes_ertekek}"
         super().__init__(self.message)
 
 
@@ -45,6 +56,7 @@ class H_Egyeb(Hiba):
         self.message = p_message
         super().__init__(self.message)
 
+
 def hibauzenet(p_kivetel: Exception) -> str:
     huzenet: str = repr(p_kivetel)
     if p_kivetel.__context__ == None:
@@ -52,5 +64,3 @@ def hibauzenet(p_kivetel: Exception) -> str:
     else:
         huzenet = huzenet + " | " + hibauzenet(p_kivetel.__context__)
         return huzenet
-
-
