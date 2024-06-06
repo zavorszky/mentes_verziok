@@ -1,6 +1,6 @@
 ZIP tipus
 ZipFile
-ZIP parancsok;Kapcsolók;Forrás könyvtár;Archívum
-u;-r;h:\DADY\rend\esemenyek\;i:\DADY\mentes\esemenyek
-u;;h:\DADY\rend\temak\;i:\DADY\mentes\temak
-u;-r;h:\DADY\rend\rend\;i:\DADY\mentes\rend
+ZIP parancsok (0);Kapcsolók (1);Forrás könyvtár (2);Archívum (3)
+;;h:\DADY\rend\esemenyek\;H:\DADY\rend\temak\mentes_240420_1454\mentes_verziok\test\esemenyek.zip
+;;h:\DADY\rend\temak\;H:\DADY\rend\temak\mentes_240420_1454\mentes_verziok\test\temak.zip
+;;h:\DADY\rend\rend\;H:\DADY\rend\temak\mentes_240420_1454\mentes_verziok\test\rend.zip

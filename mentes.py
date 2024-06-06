@@ -36,6 +36,7 @@ import z9packages.z9seq.z9seq_mod as sm
 import z9packages.z9log.z9log_mod as lm
 import menteshiba_mod as mhm
 import csv
+import zipfile
 
 PRG_VERZIO = "1.0"
 PRG_NEV = "mentes.main"
@@ -48,6 +49,9 @@ PRGLOGFILE_NEV = "mentes.log"
 
 MENTESTABLAFILE_NEV = "mentestabla.csv"
 ZIPTIPUS_ERVENYES = "ZIPFILE"
+
+CSV_FORRAS_KONYVTAR: int = 2
+CSV_CEL_ARCHIVUM: int = 3
 
 
 def naplozas_init() -> None:
@@ -79,13 +83,42 @@ def naplozas_init() -> None:
     return naplo
 
 
-def mentes_konyvtar(p_naplo: lm.Naplo, sor: list) -> bool:
-    """ """
-    return True
+def get_file_paths(p_konyvtar: str) -> list[str]:
+    """
+    A 'p_konyvtar'-ban lévő minden file TELJES elérési útvonalát
+    tartalmazó listát készítő függvény.
+    """
+    file_paths: list[str] = []
+    try:
+        for root, directories, files in os.walk(p_konyvtar):
+            for file_name in files:
+                if os.sep == "/":
+                    file_path = os.path.join(root, file_name)
+                else:
+                    filepath = (os.path.join(root, file_name)).replace("\\", "/")
+                file_paths.append(filepath)
+        return file_paths
+    except Exception as e:
+        raise mhm.H_File_Paths(p_directory_nev=p_konyvtar) from e
 
 
-def mentes_konyvtarak(p_naplo: lm.Naplo, p_stat: dict) -> None:
+def mentes_konyvtar(p_forras_konyvtarak: list[str], p_cel_archivum: str) -> None:
     """ """
+    try:
+        with zipfile.ZipFile(
+            file=p_cel_archivum, mode="w", compression=zipfile.ZIP_DEFLATED
+        ) as f:
+            for allomany in p_forras_konyvtarak:
+                f.write(allomany)
+    except Exception as e:
+        raise mhm.H_ZIP_Egyeb(f"Hiba a  {p_cel_archivum} Sikertelen ") from e
+
+
+def mentes_konyvtarak(p_stat: dict) -> None:
+    """ """
+    p_stat["darab_sikeres"] = 0
+    p_stat["darab_sikertelen"] = 0
+
     if not os.path.exists(MENTESTABLAFILE_NEV):
         raise FileNotFoundError(
             OSERROR_ENOENT, OSERROR_ENOENT_MESSAGE, MENTESTABLAFILE_NEV
@@ -95,28 +128,42 @@ def mentes_konyvtarak(p_naplo: lm.Naplo, p_stat: dict) -> None:
         with open(MENTESTABLAFILE_NEV) as f:
             # Első sor nem kell
             sor_kuka: str = next(f)
-            # A második sor (A2, ebben van milyen zip parancsokat és kapcsolókat használ a file)
+            # A második sor ('A2', ebben van milyen zip tipusú modul
+            # dolgozik, tehát milyen paramétereket parancsokat és
+            # kapcsolókat használhat; csak ilyen paramétereket tartalmazhat
+            # a .csv file).
             ziptipus: str = ((next(f)).rstrip()).upper()
             if ziptipus != ZIPTIPUS_ERVENYES:
-                raise mhm.H_ZIP_File_Cella(
+                raise mhm.H_CSV_File_Cella(
                     p_file_nev=MENTESTABLAFILE_NEV,
                     p_hibas_cella="A2",
                     p_helyes_ertekek=ZIPTIPUS_ERVENYES,
                 )
             # Fejlec nem kell
             sor_kuka = next(f)
+            #
             olvaso = csv.reader(f, dialect="excel", delimiter=";")
             i: int = 0
             for sor in olvaso:
                 i += 1
-                if mentes_konyvtar(p_naplo, sor):
-                    p_stat["darab_sikeres"] += 1
-                    print("\t", i, "OK", sor[2])
-                else:
-                    p_stat["darab_sikertelen"] += 1
-                    print("\t", i, "Hibás", sor[2])
+                sikeres_mentes: bool = True
+                try:
+                    forras_fileok: list[str] = get_file_paths(
+                        p_konyvtar=sor[CSV_FORRAS_KONYVTAR]
+                    )
 
+                    mentes_konyvtar(forras_fileok, sor[CSV_CEL_ARCHIVUM])
+                    p_stat["darab_sikeres"] += 1
+                    print("\t", i, "OK", sor[CSV_FORRAS_KONYVTAR])
+                except Exception as e:
+                    p_stat["darab_sikertelen"] += 1
+                    print(f"\tHiba a {i}. '{sor[CSV_FORRAS_KONYVTAR]}' tömörítésekor")
+                    print(f"\t{mhm.hibauzenet(e)}")
+                    naplo.irErr(f"Hiba a {i}. '{sor[CSV_FORRAS_KONYVTAR]}' tömörítésekor")
+                    naplo.irErr(f"::: {mhm.hibauzenet(e)}")
     except Exception as e:
+        p_stat["darab_sikeres"] = None
+        p_stat["darab_sikertelen"] = None
         raise mhm.H_Egyeb(
             f"Hiba történt a '{MENTESTABLAFILE_NEV}' file beolvasásakor"
         ) from e
@@ -124,19 +171,10 @@ def mentes_konyvtarak(p_naplo: lm.Naplo, p_stat: dict) -> None:
 
 def main():
     try:
-        print("A naplózás üzembehelyezése...")
-        naplo = naplozas_init()
-        print("\tSikeres")
-
-        naplo.irInfo("")
-        naplo.irInfo(f"{PRG_NEV} (v{PRG_VERZIO})")
-
-        # oooo
-
         print(f"\nA mentés a '{MENTESTABLAFILE_NEV}' tábla alapján...")
 
         stat: dict = {"darab_sikeres": 0, "darab_sikertelen": 0}
-        mentes_konyvtarak(p_naplo=naplo, p_stat=stat)
+        mentes_konyvtarak(p_stat=stat)
 
         print("\tMentés statisztika:")
         munka_str: str = (
@@ -160,15 +198,6 @@ def main():
 
         print("\nA program sikeresen befejeződött")
         naplo.irInfo("A program sikeresen befejeződött")
-
-    except (
-        mhm.H_Sorszam_KonfigOlvasasa,
-        mhm.H_Sorszam_KonfigIrasa,
-        mhm.H_Naplozas_Elokeszites,
-    ) as h:
-        print("\tHiba történt a program végrehajtása közben:")
-        print(f"\t{mhm.hibauzenet(h)}")
-        print(h.__traceback__)
     except Exception as h:
         print("\tHiba történt a program végrehajtása közben:")
         print(f"\t{mhm.hibauzenet(h)}")
@@ -177,4 +206,24 @@ def main():
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-main()
+try:
+    print("A naplózás üzembehelyezése...")
+    naplo = naplozas_init()
+    print("\tSikeres")
+    naplo.irInfo("")
+    naplo.irInfo(f"{PRG_NEV} (v{PRG_VERZIO})")
+
+    main()
+
+except (
+    mhm.H_Sorszam_KonfigOlvasasa,
+    mhm.H_Sorszam_KonfigIrasa,
+    mhm.H_Naplozas_Elokeszites,
+) as h:
+    print("\tHiba történt a program végrehajtása közben:")
+    print(f"\t{mhm.hibauzenet(h)}")
+    print(h.__traceback__)
+except Exception as h:
+    print("\tHiba történt a program végrehajtása közben:")
+    print(f"\t{mhm.hibauzenet(h)}")
+    naplo.irErr(mhm.hibauzenet(h))

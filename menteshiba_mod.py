@@ -40,7 +40,7 @@ class H_File_Kereses(Hiba):
         super().__init__(self.message)
 
 
-class H_ZIP_File_Cella(Hiba):
+class H_CSV_File_Cella(Hiba):
     def __init__(
         self, p_file_nev: str, p_hibas_cella: str, p_helyes_ertekek: list
     ) -> None:
@@ -49,6 +49,14 @@ class H_ZIP_File_Cella(Hiba):
         self.helyes_ertekek = p_helyes_ertekek
         self.message = f"A '{self.file_neve}'-ban hibás a '{p_hibas_cella}' értéke. Helyes: {p_helyes_ertekek}"
         super().__init__(self.message)
+
+
+class H_File_Paths(Hiba):
+    def __init__(self, p_directory_nev: str) -> None:
+        self.directory_nev=p_directory_nev
+        self.message = f"A '{p_directory_nev}' könyvtárhoz nem sikerült a file listát összeállítani"
+        super().__init__(self.message)
+
 
 
 class H_Egyeb(Hiba):
