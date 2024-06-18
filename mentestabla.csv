@@ -1,6 +1,5 @@
-ZIP tipus
 ZipFile
-ZIP parancsok (0);Kapcsolók (1);Forrás könyvtár (2);Archívum (3)
-;;h:\DADY\rend\esemenyek\;H:\DADY\rend\temak\mentes_240420_1454\mentes_verziok\test\esemenyek.zip
-;;h:\DADY\rend\temak\;H:\DADY\rend\temak\mentes_240420_1454\mentes_verziok\test\temak.zip
-;;h:\DADY\rend\rend\;H:\DADY\rend\temak\mentes_240420_1454\mentes_verziok\test\rend.zip
+Mentés I/N (0);Forrás könyvtár (1);Archívum (2)
+I;h:\DADY\rend\esemenyek\;e:\felhasznalok\dady\tmp\proba_konyvtar1\esemenyek.zip
+N;h:\DADY\rend\temak\;e:\felhasznalok\dady\tmp\proba_konyvtar2\temak.zip
+I;h:\DADY\rend\rend\;e:\felhasznalok\dady\tmp\proba_konyvtar2\rend.zip

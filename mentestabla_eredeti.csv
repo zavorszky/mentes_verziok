@@ -1,6 +1,0 @@
-ZIP tipus
-ZipFile
-ZIP parancsok (0);Kapcsolók (1);Forrás könyvtár (2);Archívum (3)
-u;-r;h:\DADY\rend\esemenyek\;i:\DADY\mentes\esemenyek.zip
-u;;h:\DADY\rend\temak\;i:\DADY\mentes\temak.zip
-u;-r;h:\DADY\rend\rend\;i:\DADY\mentes\rend.zip

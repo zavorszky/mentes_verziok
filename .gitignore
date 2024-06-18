@@ -4,3 +4,4 @@
 *.zip
 test/*.jpg
 test/test_zip/
+test/test_zip2/
