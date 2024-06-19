@@ -1,0 +1,6 @@
+"""
+"""
+
+vegrehajtas = None
+
+naplo = None
