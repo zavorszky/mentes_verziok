@@ -2,14 +2,30 @@
 
 ## Felépítés
 
-<pre>
+<pre><code>
 [z9package]
 |  [z9hiba]
+|  |  [test]
+|  |  |  test_01.py
+|  |  |  test_02.py
+|  |  |  test_03.py
+|  |  __init__.py
+|  |  z9hiba_mod.py
 |  [z9log]
 |  [z9seq]
-|  README.md
+|  |  [test]
+|  |  |  mentes_sorszam.cfg
+|  |  |  test_01.py
+|  |  __init__.py
+|  |  z9seq_mod.py
+|  [z9timer]
+|  |  [test]
+|  |  |  test_01.py
+|  |  __init__.py
+|  |  z9timer_mod.py
 |  __init__.py
-</pre>
+|  README.md
+</code></pre>
 
 
 Info: \

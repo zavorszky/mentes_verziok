@@ -1,6 +1,18 @@
 """
-
-
+File
+    mentesnaplo_mod.py
+Feladat
+    A mentés applikáció napló kezelése.
+    A naplóban a bejegyzések sorszámozva vannak. Ehhez a 'z9package.z9seq_mod'
+    csomagot használjuk. Az aktuális sorszámot a 'mentes_sorszam.cfg' file-ban
+    tároljul.
+    A napló file nevét paraméterként kapja a 'naplozas_init()' függvény. A naplózás
+    beállításait a 'z9log.cfg' tartalmazza ha létezik. Ha nem létezik, akkor
+    default beállítások lépnek életbe.
+Fejlesztő
+    zavorszky@yahoo.com
+Létrehozás
+    2024.05.xx
 """
 
 import menteshiba_mod as mhm

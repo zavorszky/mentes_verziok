@@ -1,3 +1,15 @@
+"""
+File
+    test_01.py
+Feladat
+    A 'z9timer_mod' modul próbája.
+    (A 'tesztelés' szót fenntartom az olyan komolyabb tesztelésre
+    ahol tesztnaplót készítek teszt esetekkel, használom a Python
+    'unittest' modult.)
+Info
+    Tutorial Python: Python Import from parent directory: https://tutorpython.com/python-import-from-parent-directory/
+"""
+
 import os
 import sys
 

@@ -1,20 +1,19 @@
+import os
 import sys
 
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+print("\nMunka/aktuális könyvtár:", os.getcwd())
 
-def modulokEleresenekBeallitasa():
-    aktualis_file_utvonal_list = __file__.split("\\")
-    n = len(aktualis_file_utvonal_list)
-    sys.path.append("\\".join(aktualis_file_utvonal_list[0 : (n - 4)]))
+# *************************************
 
 
-modulokEleresenekBeallitasa()
+import z9seq_mod as seq
 
-# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+mentesSorszam = seq.Sorszam(p_file_nev="./z9packages/z9seq/test/mentes_sorszam.cfg")
 
-import z9packages.z9seq.z9seq_mod as seq
-
-mentesSorszam = seq.Sorszam(p_file_nev="mentes_sorszam.cfg")
+print("")
 print(mentesSorszam.kovetkezo())
 print(mentesSorszam.kovetkezo())
 print(mentesSorszam.sorszam)
+
 mentesSorszam.valtozasMentes()

@@ -1,8 +1,12 @@
 """
-File:       menteshiba_mod.py
-Feladat:    Mentés applikáció hibái.
-Fejlesztő:  zavorszky@yahoo.com
-Létrehozás: 2024.05.xx
+File
+    menteshiba_mod.py
+Feladat
+    A mentés applikáció hiba osztályai.
+Fejlesztő
+    zavorszky@yahoo.com
+Létrehozás
+    2024.05.xx
 """
 
 
@@ -53,10 +57,9 @@ class H_CSV_File_Cella(Hiba):
 
 class H_File_Paths(Hiba):
     def __init__(self, p_directory_nev: str) -> None:
-        self.directory_nev=p_directory_nev
+        self.directory_nev = p_directory_nev
         self.message = f"A '{p_directory_nev}' könyvtárhoz nem sikerült a file listát összeállítani"
         super().__init__(self.message)
-
 
 
 class H_Egyeb(Hiba):

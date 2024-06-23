@@ -1,14 +1,14 @@
 """
-File:
+File
     z9timer_mod.py
-Feladat:
+Feladat
     Mentés applikáció - Főprogram
-Info:
+Info
     stacoverflow: How to format elapsed time from seconds to hours, minutes, seconds and milliseconds in Python?: https://stackoverflow.com/questions/27779677/how-to-format-elapsed-time-from-seconds-to-hours-minutes-seconds-and-milliseco
     Python documentation: time - Time access and conversions: https://docs.python.org/3/library/time.html
-Fejlesztő:
+Fejlesztő
     zavorszky@yahoo.com
-Létrehozás:
+Létrehozás
     2024-06-18
 """
 

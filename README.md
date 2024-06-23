@@ -34,19 +34,20 @@ Amíg a Python szkripthez nem tudok eleget, az egyszerű Win10 Cmd Script-et has
 
 * Stabil verzió: nincs
 * Script nyelv: Win CMD/PowerShell, Python
-* Tömörítés: 7zip
-* Mentés paraméterek tárolása a "**mentes.cfg**" file-ban.
-* A (mentendő és a cél könvytár) pároknak a tárolás a **mentes.cvs** file-ban.
+* Tömörítés: zipfile (Python module)
+* A (mentendő és a cél könvytár) pároknak a tárolás a **mentestabla.cvs** file-ban.
 * Logozás 
     - Script üzenetek írása a képernyőre.
-    - A futásról mapló/log file készül, file-omként mutatja\
+    - A futásról mapló/log file készül, file-onként mutatja\
     a mentés sikerességét, és a végén egy összegzést.
-    - Tömörító stdout átirányítása text file-ba.
     - A logozásra külön modul készült: z9log_mod.py.\
     Ha módosítani akarjuk a logozást, akkor a "**z9log.cfg**" (encode=utf-8) file-t kell használni.\
     Infos
       * [python &raquo; logging.config — Logging configuration &raquo; Configuration file format](https://docs.python.org/3/library/logging.config.html)
 
+# Github
+
+Link: [mentes_verziok](https://github.com/zavorszky/mentes_verziok)
 
 # Készült
 

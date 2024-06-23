@@ -1,4 +1,17 @@
 """
+File
+    menteskonyvtarak_mod.py
+Feladat
+    Adott a 'mentestabla.csv' file, ami tarttalmazza a mentendő
+    könyvtárakat (elérési útvonallal) és a hozzájuk tartozó cél
+    archívumokat (elérési útvonal + zip file név). A .csv file-t
+    a 'mentes_konyvtarak' függvény kezeli. Ez hívja egy-egy [forrás
+    könyvtár + cél archívum] párral a 'mentes_konyvtar' függvényt.
+    Ez utóbbi végzi a mentést/tömörítést. 
+Fejlesztő
+    zavorszky@yahoo.com
+Létrehozás
+    2024.05.xx
 """
 
 import os
@@ -6,16 +19,7 @@ import csv
 import zipfile
 import z9packages.z9timer.z9timer_mod as tm
 import menteshiba_mod as mhm
-#import mentesnaplo_mod as mnm
 import mentesglogal_mod as mgm
-#import mentes as mm
-
-
-OSERROR_ENOENT = 2
-OSERROR_ENOENT_MESSAGE = "A file vagy a könyvtár nem létezik"
-
-
-
 
 
 def file_utvonal_szabvanyositas(p_path: str) -> str:
@@ -73,9 +77,9 @@ def mentes_konyvtarak(p_mentestablafile_nev: str, p_stat: dict) -> None:
     -----------------
     A1:   megengedett:ZipFile
     A2:C2 Fejléc
-    A3:A* Mentés jel; csal akkor történik feldolgozás, ha az értéke 'I'
-    B3:B* A forrás könyvtár, ezt és az alkönyvtárait kell menteni.
-    C3:C* A cél archívum.
+    A3:A  Mentés jel; csal akkor történik feldolgozás, ha az értéke 'I'
+    B3:B  A forrás könyvtár, ezt és az alkönyvtárait kell menteni.
+    C3:C  A cél archívum.
     """
     ZIPTIPUS_ERVENYES: str = "ZIPFILE"
     CSV_MENTES_JEL: int = 0
@@ -88,7 +92,7 @@ def mentes_konyvtarak(p_mentestablafile_nev: str, p_stat: dict) -> None:
 
     if not os.path.exists(p_mentestablafile_nev):
         raise FileNotFoundError(
-            OSERROR_ENOENT, OSERROR_ENOENT_MESSAGE, p_mentestablafile_nev
+            mgm.OSERROR_ENOENT, mgm.OSERROR_ENOENT_MESSAGE, p_mentestablafile_nev
         )
 
     try:

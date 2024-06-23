@@ -30,24 +30,17 @@ import mentesnaplo_mod as mnm
 import meneteskonyvtarak_mod as mkm
 
 
-PRG_VERZIO = "1.0"
-PRG_NEV = "mentes"
-
-
-# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 def main(
     p_mentestablafile_nev: str = "mentestabla.csv", p_logfile_nev: str = "mentes.log"
 ) -> None:
-    global naplo
+    # global naplo
     try:
-        print(f"{PRG_NEV} v{PRG_VERZIO}")
+        print(f"{mgm.PRG_NEV} v{mgm.PRG_VERZIO}")
         print("A naplózás üzembehelyezése...")
         mgm.naplo = mnm.naplozas_init(p_logfile_nev=p_logfile_nev)
         print("\tSikeres")
         mgm.naplo.irInfo("")
-        mgm.naplo.irInfo(f"{PRG_NEV} (v{PRG_VERZIO})")
+        mgm.naplo.irInfo(f"{mgm.PRG_NEV} (v{mgm.PRG_VERZIO})")
 
         try:
             print(f"\nA mentés a '{p_mentestablafile_nev}' tábla alapján...")
@@ -99,6 +92,6 @@ def main(
 
 
 if __name__ == "__main__":
-    global vegrehajtas
-    vegrehajtas = {"tomorites": True}
+    # global vegrehajtas
+    mgm.vegrehajtas = {"tomorites": True}
     main(p_mentestablafile_nev="mentestabla.csv", p_logfile_nev="mentes.log")

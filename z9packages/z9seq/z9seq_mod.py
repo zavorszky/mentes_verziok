@@ -1,6 +1,8 @@
 """
-Csomag:     z9seq
-File:       z9seq_mod
+Csomag
+    z9seq
+File
+    z9seq_mod
 Info:
   A projekt könyvtárban kell lennie egy konfig file-nak,
   a következő tartalommal:
@@ -8,8 +10,10 @@ Info:
     kovetkezo = n
   ahonnan az 'n' egész számot olvassa be a Python a Sorszam
   osztály példányosításakor.
-Fejlesztő:  zavorszky@yahoo.com
-Létrehozás: 2024.05.xx
+Fejlesztő
+    zavorszky@yahoo.com
+Létrehozás
+    2024.05.xx
 """
 
 import os
