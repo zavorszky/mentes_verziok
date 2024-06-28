@@ -1,9 +1,9 @@
 """
-File:
+File
     mentes.py
-Feladat:
+Feladat
     Mentés applikáció - Főprogram
-Info:
+Info
     (1) A 'csv' csomag egy sorokból álló listát dolgoz fel.
     A sorokat szöveg file esetén (és a .csv file az) '\r',
     '\n' karakterek zárják. A 'csv' csomag 'csv.reader()'-e
@@ -17,9 +17,9 @@ Info:
     stackoverflow: How can I remove carriage return from a text file with Python?: https://stackoverflow.com/questions/17658055/how-can-i-remove-carriage-return-from-a-text-file-with-python
     valójában egy iterátorral dolgozza fel
      a megnyitott file-t. Itt a file sorai jelentik 
-Fejlesztő:
+Fejlesztő
     zavorszky@yahoo.com
-Létrehozás:
+Létrehozás
     2024-05-08
 """
 

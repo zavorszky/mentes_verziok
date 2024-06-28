@@ -1,3 +1,15 @@
+"""
+File
+    test_06.py
+Feladat
+    Kinlódás a szülő könyvtárban lévő modulok eléréséért,
+    teszteléséért
+Fejlesztő
+    zavorszky@yahoo.com
+Létrehozás
+    2024-05-??
+"""
+
 import os
 
 

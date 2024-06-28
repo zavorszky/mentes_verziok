@@ -12,6 +12,8 @@
 |  |  __init__.py
 |  |  z9hiba_mod.py
 |  [z9log]
+|  |  __init__.py
+|  |  z9log_mod.py
 |  [z9seq]
 |  |  [test]
 |  |  |  mentes_sorszam.cfg
@@ -28,5 +30,5 @@
 </code></pre>
 
 
-Info: \
+# Info
 [RealPython: Subpackages](https://realpython.com/lessons/subpackages/)

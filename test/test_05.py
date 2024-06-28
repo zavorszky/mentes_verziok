@@ -1,11 +1,18 @@
 """
-Info:
+File
+    test_05.py
+Feladat
+    A file tömörítés kipróbálása
+Info
   geeksforgeeks: Working with zip files in Python: https://www.geeksforgeeks.org/working-zip-files-python/
   Python: zipfile — Work with ZIP archives: https://docs.python.org/3/library/zipfile.html
   stackoverflow: Python zipfile module: difference between zipfile.ZIP_DEFLATED and zipfile.ZIP_STORED: https://stackoverflow.com/questions/5298169/python-zipfile-module-difference-between-zipfile-zip-deflated-and-zipfile-zip-s
+Fejlesztő
+    zavorszky@yahoo.com
+Létrehozás
+    2024-05-??
 """
 
-#from zipfile import ZipFile
 import zipfile
 import os
 import datetime
@@ -16,10 +23,9 @@ def get_all_file_path(p_konyvtar) -> list:
 
     for root, directories, files in os.walk(p_konyvtar):
         for filename in files:
-            if os.sep == "/":
-                filepath = os.path.join(root, filename)
-            else:
-                filepath = (os.path.join(root, filename)).replace("\\", "/")
+            filepath = os.path.join(root, filename)
+            if os.sep == "\\":
+                filepath = filepath.replace("\\", "/")
             file_paths.append(filepath)
     return file_paths
 
@@ -40,7 +46,9 @@ def main() -> None:
     print("\nTömörítés...")
     # with ZipFile("teszt.zip","w") as zip:
     # with zipfile.ZipFile(file="teszt.zip",mode="w",compression=zipfile.ZIP_STORED) as zip:
-    with zipfile.ZipFile(file="teszt.zip",mode="w",compression=zipfile.ZIP_DEFLATED) as zip:
+    with zipfile.ZipFile(
+        file="teszt.zip", mode="w", compression=zipfile.ZIP_DEFLATED
+    ) as zip:
         for allomany in allomanyok:
             zip.write(allomany)
 

@@ -1,17 +1,25 @@
+import os
 import sys
 
-
-def modulKeresesiUtBeallitasa() -> None:
-    """ """
-    aktualis_file_utvonal_list: list = __file__.split("\\")
-    n: int = len(aktualis_file_utvonal_list)
-    sys.path.append("\\".join(aktualis_file_utvonal_list[0 : (n - 2)]))
-
-
-modulKeresesiUtBeallitasa()
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+print("\nMunka/aktuális könyvtár:", os.getcwd())
 
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+"""
+File
+    test_01.py
+Feladat
+    A 'z9hiba.z9hiba_mod' modul kipróbálása.
+    A modul a 'Hiba' alaposztályt, és leszármazottait definiálja.
+    Ezek az osztályok csak dokumentálják a hibákat/kivételeket,
+    de nem kivételek!
+Fejlesztő
+    zavorszky@yahoo.com
+Létrehozás
+    2024-05-??
+"""
 
 
 import z9packages.z9hiba.z9hiba_mod as hm
