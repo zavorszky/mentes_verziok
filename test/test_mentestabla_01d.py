@@ -1,3 +1,10 @@
+"""
+Tesztnapló
+    mentes_tesztnaplo.ods
+Teszt eset
+    1.d
+"""
+
 import os
 import sys
 
@@ -10,4 +17,4 @@ import mentes
 
 mgm.vegrehajtas = {"tomorites": True}
 
-mentes.main(p_mentestablafile_nev="./test/test_mentestabla_01.csv")
+mentes.main(p_mentestablafile_nev="./test/test_mentestabla_01d.csv")
