@@ -1,63 +1,64 @@
-
 @echo off
-echo -----------------------------
-echo Mentés mag (menets_mag.cmd)
-echo %date%
-echo %time%
+
+setlocal
+echo .
+echo . -----------------------------
+echo . Mentés mag (menets_mag.cmd)
+echo . %date% %time%
 @echo off
 
 call e:\felhasznalok\dady\sajat_programok\_ini_\set_ffn_7za.cmd
 
 rem -- Kezdési idő feljegyzése
 
-set z9kezdido = %time%
+set z9kezdido=%time%
 
-:feladatblokk_eleje
+rem -- Mentések, teszteléshez 'if'-ek
 
-%ffn_7za% u -r -wc:\ProgramData\tmp\ i:\DADY\mentes\esemenyek       h:\DADY\rend\esemenyek\
-goto cim_feladatblokk_vege
-%ffn_7za% u -r i:\DADY\mentes\temak           h:\DADY\rend\temak\
-%ffn_7za% u    i:\DADY\mentes\rend            h:\DADY\rend\rend\
-%ffn_7za% u -r i:\DADY\mentes\konyvek         h:\DADY\raktar\Konyvtar\konyvek\
-
-%ffn_7za% u -r i:\DADY\mentes\sajat_programok e:\felhasznalok\dady\sajat_programok\_ini_\
-%ffn_7za% u -r i:\DADY\mentes\sajat_programok e:\felhasznalok\dady\sajat_programok\mentes\ -xr!*.log
-
-:cim_feladatblokk_vege
+if 1==1 %ffn_7za% a -r i:\DADY\mentes\esemenyek h:\DADY\rend\esemenyek\
+if 1==0 %ffn_7za% a -r i:\DADY\mentes\temak   h:\DADY\rend\temak\
+if 1==0 %ffn_7za% a    i:\DADY\mentes\rend    h:\DADY\rend\rend\
+if 1==0 %ffn_7za% a -r i:\DADY\mentes\konyvek h:\DADY\raktar\Konyvtar\konyvek\
+if 1==0 %ffn_7za% a -r i:\DADY\mentes\sajat_programok_ini_   e:\felhasznalok\dady\sajat_programok\_ini_\
+if 1==0 %ffn_7za% a -r i:\DADY\mentes\sajat_programok_mentes e:\felhasznalok\dady\sajat_programok\mentes\ -xr!*.log
 
 rem -- Befejezési idő feljegyzése
 
-set z9befido = %time%
+set z9befido=%time%
 
 rem -- Tömörítési idő kiszámítása, kiírása
-echo Kezdés időpontja: %z9kezdido%
-echo Befejezés időpontja: %z9befido%
 
 rem -- Az időpontok (centisec = század másodperc)-re konvertálva
 set /A kezdido_csec=(1%z9kezdido:~0,2%-100)*360000 + (1%z9kezdido:~3,2%-100)*6000 + (1%z9kezdido:~6,2%-100)*100 + (1%z9kezdido:~9,2%-100)
 set /A befido_csec=(1%z9befido:~0,2%-100)*360000 + (1%z9befido:~3,2%-100)*6000 + (1%z9befido:~6,2%-100)*100 + (1%z9befido:~9,2%-100)
 
 rem -- Végrehajtási idő kiszámítása század másodpercben
-set /A vegrehajtásido_csec=%befido_csec%-%kezdido_csec%
+set /A vegrehajtasido_csec=%befido_csec%-%kezdido_csec%
 
 rem -- A végrehajtási idő felbintása órára, percre, másodpercre
-set /A vegrehajtásido_hora=%vegrehajtásido_csec% / 360000
-set /A vegrehajtásido_min=(%vegrehajtásido_csec% - %vegrehajtásido_hora%*360000) / 6000
-set /A vegrehajtásido_sec=(%vegrehajtásido_csec% - %vegrehajtásido_hora%*360000 - %vegrehajtásido_min%*6000) / 100
-set /A vegrehajtásido_sec2=(%vegrehajtásido_csec% - %vegrehajtásido_hora%*360000 - %vegrehajtásido_min%*6000 - %vegrehajtásido_sec%*100)
+set /A vegrehajtasido_h=%vegrehajtasido_csec% / 360000
+set /A vegrehajtasido_min=(%vegrehajtasido_csec% - %vegrehajtasido_h%*360000) / 6000
+set /A vegrehajtasido_sec=(%vegrehajtasido_csec% - %vegrehajtasido_h%*360000 - %vegrehajtasido_min%*6000) / 100
+set /A vegrehajtasido_sec2=(%vegrehajtasido_csec% - %vegrehajtasido_h%*360000 - %vegrehajtasido_min%*6000 - %vegrehajtasido_sec%*100)
 
 rem -- Formázás, 0-val kiegészítés, ha kell
-if %vegrehajtásido_h% LSS 10 set vegrehajtásido_h=0%vegrehajtásido_h%
-if %vegrehajtásido_min% LSS 10 set vegrehajtásido_min=0%vegrehajtásido_min%
-if %vegrehajtásido_sec% LSS 10 set vegrehajtásido_sec=0%vegrehajtásido_sec%
-if %vegrehajtásido_sec2% LSS 10 set vegrehajtásido_sec2=0%vegrehajtásido_sec2%
+if %vegrehajtasido_h% LSS 10 set vegrehajtasido_h=0%vegrehajtasido_h%
+if %vegrehajtasido_min% LSS 10 set vegrehajtasido_min=0%vegrehajtasido_min%
+if %vegrehajtasido_sec% LSS 10 set vegrehajtasido_sec=0%vegrehajtasido_sec%
+if %vegrehajtasido_sec2% LSS 10 set vegrehajtasido_sec2=0%vegrehajtasido_sec2%
 
 rem -- Kiírás
-echo Kezdés időpontja: %kezdido_csec% [centisecond]
-echo Befejezés időpontja: %befido_csec% [centisecond]
-echo Végrehajtás ideje: %vegrehajtásido_csec% [centisecond]
-echo %vegrehajtásido_h% h  %vegrehajtásido_min% m  %vegrehajtásido_sec%,%vegrehajtásido_sec2% s
+rem -- echo Kezdés időpontja: %kezdido_csec% [centisecond]
+rem -- echo Befejezés időpontja: %befido_csec% [centisecond]
+rem -- echo Végrehajtás ideje: %vegrehajtasido_csec% [centisecond]
+echo . Mentés kezdete: %z9kezdido%
+echo . Mentés befejezése: %z9befido%
+echo .
+echo . Mentés/tömörítés-re fordított idő
+echo . %vegrehajtasido_h% h  %vegrehajtasido_min% m  %vegrehajtasido_sec%,%vegrehajtasido_sec2% s
 
 rem -- Info
 rem --   SS64: SET: https://ss64.com/nt/set.html#expressions
 rem --   stackoverflow: Calculate time difference in Windows batch file: https://stackoverflow.com/questions/9922498/calculate-time-difference-in-windows-batch-file
+
+endlocal

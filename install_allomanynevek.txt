@@ -1,0 +1,2 @@
+mentes.cmd
+mentes_mag.cmd

@@ -1,5 +1,10 @@
 chcp 65001
 @echo off
+
+setlocal
+
+rem -- set z9logfilename=mentes.log
+set z9logfilename=test_mentes.log
 echo . 
 echo . Mentések (mentes.cmd)
 echo . ---------------------
@@ -12,11 +17,13 @@ pause > nul
 echo .
 echo . A mentés elindult...
 
-if not exist mentes.log echo "create mentes.log" > mentes.log
-call mentes_mag.cmd >> mentes.log
+if not exist %z9logfilename% echo "create %z9logfilename%" > %z9logfilename%
+call mentes_mag.cmd >> %z9logfilename%
 
 @echo off
 echo .
 echo . A mentés kész.
 echo . Az ablak bezárásához nyomjon egy (Enter)-t.
 pause > nul
+
+endlocal

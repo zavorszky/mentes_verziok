@@ -20,12 +20,25 @@ Amíg a Python szkripthez nem tudok eleget, az egyszerű Win10 Cmd Script-et has
 
 ## v0.1
 
-Stabil verzió: 2024-01-20
-
-# Készült
+### Készült
 
 Budapest, 2024-04-20 ...
 
-Závorszky István
+### Stabil verzió
+
+2024-01-20
+
+## v0.1.1
+
+Új funkciók:
+
+1. A mentendő utasítások feltételhez kötése (if 1==1...) a tesztelés könnytéséhez.
+1. A mentés idejének mérése és kiírása a Python-os verzióval való összehasonlíthatóság érdekébe.
+
+### Készült
+
+Budapest, 2024-07-07
+
+# Szerző
 
 zavorszky@yahoo.com
