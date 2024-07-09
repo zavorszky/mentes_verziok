@@ -19,7 +19,7 @@ A Python lett a következő választás. Azért is erre gondoltam, mert a rá é
 
 Amíg a Python szkripthez nem tudok eleget, az egyszerű Win10 Cmd Script-et használom: v0.1
 
-## v0.1
+## v 01a
 
 * Stabil verzió: 2024-01-20
 * Script nyelv: Win CMD
@@ -30,7 +30,18 @@ Amíg a Python szkripthez nem tudok eleget, az egyszerű Win10 Cmd Script-et has
     - Script echo üzenetek átirányítása text file-ba.
     - Tömörító stdout átirányítása text file-ba.
 
-## v1.0
+## v 01b
+
+Új funkciók a v01a-hz képest:
+
+1. A mentendő utasítások feltételhez kötése (if 1==1...) a tesztelés könnytéséhez.
+1. A mentés idejének mérése és kiírása a Python-os verzióval való összehasonlíthatóság érdekébe.
+
+### Készült
+
+Budapest, 2024-07-07
+
+## v 02a
 
 * Stabil verzió: nincs
 * Script nyelv: Win CMD/PowerShell, Python
@@ -42,16 +53,14 @@ Amíg a Python szkripthez nem tudok eleget, az egyszerű Win10 Cmd Script-et has
     a mentés sikerességét, és a végén egy összegzést.
     - A logozásra külön modul készült: z9log_mod.py.\
     Ha módosítani akarjuk a logozást, akkor a "**z9log.cfg**" (encode=utf-8) file-t kell használni.\
-    Infos
+    Info
       * [python &raquo; logging.config — Logging configuration &raquo; Configuration file format](https://docs.python.org/3/library/logging.config.html)
 
 # Github
 
 Link: [mentes_verziok](https://github.com/zavorszky/mentes_verziok)
 
-# Készült
+# Szerző
 
-Budapest, 2024-04-20 ...\
-Závorszky István
-
+Závorszky István\
 zavorszky@yahoo.com

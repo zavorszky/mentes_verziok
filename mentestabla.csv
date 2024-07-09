@@ -1,5 +1,5 @@
 ZipFile
 Mentés I/N (0);Forrás könyvtár (1);Archívum (2)
-I;h:\DADY\rend\esemenyek\;e:\felhasznalok\dady\tmp\proba_konyvtar1\esemenyek.zip
-N;h:\DADY\rend\temak\;e:\felhasznalok\dady\tmp\proba_konyvtar2\temak.zip
-I;h:\DADY\rend\rend\;e:\felhasznalok\dady\tmp\proba_konyvtar2\rend.zip
+I;h:\DADY\rend\esemenyek\;i:\DADY\mentes\esemenyek.zip
+N;h:\DADY\rend\temak\;i:\DADY\mentes\temak.zip
+N;h:\DADY\rend\rend\;i:\DADY\mentes\rend.zip
